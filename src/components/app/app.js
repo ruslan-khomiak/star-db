@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
-import ItemDetails from '../item-details';
+import ItemDetails, { Record } from "../item-details/item-details";
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 
@@ -51,7 +51,10 @@ export default class App extends Component {
         itemId={ 11 }
         getData={ getPerson }
         getImageUrl={ getPersonImage }
-      />
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </ItemDetails>
     );
 
     const starshipDetails = (
