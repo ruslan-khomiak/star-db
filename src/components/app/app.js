@@ -3,30 +3,19 @@ import React, { Component } from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
-
-import ItemDetails, { Record } from '../item-details/item-details';
 import ErrorBoundry from '../error-boundry';
+import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 
-import './app.css';
 import SwapiService from '../../services/swapi-service';
 import DummySwapiService from '../../services/dummy-swapi-service';
-
 import { SwapiServiceProvider } from '../swapi-service-context';
 
-import {
-  PersonList,
-  PlanetList,
-  StarshipList,
-  PersonDetails,
-  PlanetDetails,
-  StarshipDetails,
-} from '../sw-components'
+import './app.css';
 
 export default class App extends Component {
 
   state = {
     swapiService: new SwapiService(),
-    showRandomPlanet: true,
     hasError: false,
   };
 
@@ -39,14 +28,6 @@ export default class App extends Component {
     })
   };
 
-  toggleRandomPlanet = () => {
-    this.setState((state) => {
-      return {
-        showRandomPlanet: !state.showRandomPlanet
-      }
-    });
-  };
-
   componentDidCatch() {
     this.setState({ hasError: true });
   };
@@ -57,55 +38,17 @@ export default class App extends Component {
       return <ErrorIndicator />
     }
 
-    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
-
-    const {
-      getPerson,
-      getStarship,
-      getPersonImage,
-      getStarshipImage,
-    } = this.state.swapiService;
-
-    const personDetails = (
-      <ItemDetails
-        itemId={ 11 }
-        getData={ getPerson }
-        getImageUrl={ getPersonImage }
-      >
-        <Record field="gender" label="Gender" />
-        <Record field="eyeColor" label="Eye Color" />
-      </ItemDetails>
-    );
-
-    const starshipDetails = (
-      <ItemDetails
-        itemId={ 5 }
-        getData={ getStarship }
-        getImageUrl={ getStarshipImage }
-      >
-        <Record field="model" label="Model" />
-        <Record field="length" label="Length" />
-        <Record field="costInCredits" label="Cost" />
-      </ItemDetails>
-    );
-
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={ this.state.swapiService }>
           <div className="stardb-app">
             <Header onServiceChange={ this.onServiceChange }/>
 
-            <PersonDetails itemId={11}/>
+            <RandomPlanet />
+            <PeoplePage />
+            <PlanetsPage />
+            <StarshipsPage />
 
-            <PlanetDetails itemId={5}/>
-
-            <StarshipDetails itemId={9}/>
-
-            <PersonList />
-
-            <StarshipList />
-
-            <PlanetList />
           </div>
         </SwapiServiceProvider>
       </ErrorBoundry>
