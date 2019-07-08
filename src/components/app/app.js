@@ -55,7 +55,7 @@ export default class App extends Component {
                 exact
               />
               <Route
-                path="/people"
+                path="/people/:id?"
                 component={ PeoplePage }
               />
               <Route
