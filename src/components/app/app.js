@@ -55,15 +55,15 @@ export default class App extends Component {
                 exact
               />
               <Route
-                path="/people/"
+                path="/people"
                 component={ PeoplePage }
               />
               <Route
-                path="/planets/"
+                path="/planets"
                 component={ PlanetsPage }
               />
               <Route
-                path="/starships/"
+                path="/starships"
                 component={ StarshipsPage }
                 exact
               />
